@@ -30,7 +30,6 @@ public class Cart {
         if (items.contains(item)) {
             return false;
         }
-
         items.add(new Item(item));
         return true;
     }
