@@ -12,28 +12,71 @@ public class Main {
     static Store store = new Store();
 
     public static void main(String[] args) {
+        System.out.println("\n\t******************************JAVA GROCERS******************************\n");
+
         try {
             loadItems("products.txt");
+            System.out.println(store);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
-        }finally {
-            System.out.println("\n\t******************************JAVA GROCERS******************************\n");
+        } finally {
+            manageContacts();
 
-            System.out.println(store + "\n");
         }
     }
 
     /**
      * Name: manageItems
      * Inside the function:
-     *   • 1. Starts a new instance of Scanner;
-     *   • 2. Creates an infinite loop:     
-     *   •        The user can choose to a) add or b) remove c) checkout.
-     *   •          case a: asks for the aisle and item number. Then, adds item to cart.
-     *   •          case b: asks for the name. Then, removes item from cart.
-     *   •          case c: prints the receipt and closes Scanner.
-     *   •        Prints the updated shopping cart.
+     * • 1. Starts a new instance of Scanner;
+     * • 2. Creates an infinite loop:
+     * •        The user can choose to a) add or b) remove c) checkout.
+     * •          case a: asks for the aisle and item number. Then, adds item to cart.
+     * •          case b: asks for the name. Then, removes item from cart.
+     * •          case c: prints the receipt and closes Scanner.
+     * •        Prints the updated shopping cart.
      */
+    public static void manageContacts() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\nUPDATED STORE\n" + store);
+            System.out.println("Options: \n\ta) Add to cart\n\tb) Remove from cart \n\tc) Checkout");
+            String response = scanner.nextLine();
+            switch (response) {
+                case "a" -> {
+                    System.out.print("\nChoose an aisle number between: 1 – 7: ");
+                    int row = scanner.nextInt() - 1;
+                    scanner.nextLine();
+                    System.out.print("\nChoose an aisle number between: 1 – 3: ");
+                    int column = scanner.nextInt() - 1;
+                    scanner.nextLine();
+                    Item item = new Item(store.getItems(row, column));
+                    if (!(cart.add(item))) {
+                        System.out.println(item.getName() + " is already in your shopping cart");
+                    } else {
+                        System.out.println(item.getName() + " was added to your shopping cart");
+                    }
+                    break;
+                }
+                case "b" -> {
+                    System.out.print("Enter the item you'd like to remove: ");
+                    String nameToDelete = scanner.nextLine();
+                    cart.remove(nameToDelete);
+                    System.out.println("was deleted from your shopping cart");
+
+                }
+                case "c" -> {
+                    System.out.println(cart.checkout());
+                    scanner.close();
+                    return;
+                }
+            }
+            System.out.println("\n\nSHOPPING CART\n\n" + cart);
+            System.out.print("\nEnter anything to continue: ");
+            scanner.nextLine();
+
+        }
+    }
 
     /**
      * Name: loadItems

@@ -18,13 +18,13 @@ public class Store {
         StringBuilder temp = new StringBuilder();
         for (int i = 0; i < items.length; i++) {
             switch (i) {
-                case 0 -> temp.append("\tDRINKS:        ");
-                case 1 -> temp.append("\tCEREAL:        ");
-                case 2 -> temp.append("\tDAIRY:         ");
-                case 3 -> temp.append("\tDELI:          ");
-                case 4 -> temp.append("\tGREENS:        ");
-                case 5 -> temp.append("\tCLOTHING:      ");
-                case 6 -> temp.append("\tELECTRONICS:   ");
+                case 0 -> temp.append("\t1.DRINKS:        ");
+                case 1 -> temp.append("\t2.CEREAL:        ");
+                case 2 -> temp.append("\t3.DAIRY:         ");
+                case 3 -> temp.append("\t4.DELI:          ");
+                case 4 -> temp.append("\t5.GREENS:        ");
+                case 5 -> temp.append("\t6.CLOTHING:      ");
+                case 6 -> temp.append("\t7.ELECTRONICS:   ");
             }
             for (int j = 0; j < items[i].length; j++) {
                 temp.append(items[i][j].toString());
