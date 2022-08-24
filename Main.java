@@ -43,22 +43,36 @@ public class Main {
             System.out.println("Options: \n\ta) Add to cart\n\tb) Remove from cart \n\tc) Checkout");
             String response = scanner.nextLine();
             switch (response) {
+                default -> {
+                    continue;
+                }
                 case "a" -> {
                     System.out.print("\nChoose an aisle number between: 1 – 7: ");
-                    int row = scanner.nextInt() - 1;
+                    int row = scanner.hasNextInt() ? scanner.nextInt() - 1 : 404;
                     scanner.nextLine();
                     System.out.print("\nChoose an aisle number between: 1 – 3: ");
-                    int column = scanner.nextInt() - 1;
+                    int column = scanner.hasNextInt() ? scanner.nextInt() - 1 : 404;
                     scanner.nextLine();
+                    if (row == 404 || column == 404) {
+                        System.out.println("Invalid Input");
+                        continue;
+                    }else{
+                        if (row < 0 || row > 6 || column < 0 || column > 2){
+                            System.out.println("Out of bounds");
+                            continue;
+                        }
+                    }
                     Item item = new Item(store.getItems(row, column));
                     if (!(cart.add(item))) {
                         System.out.println(item.getName() + " is already in your shopping cart");
                     } else {
                         System.out.println(item.getName() + " was added to your shopping cart");
                     }
-                    break;
                 }
                 case "b" -> {
+                    if (cart.isEmpty()){
+                        System.out.println("Can't delete from empty cart");
+                    }
                     System.out.print("Enter the item you'd like to remove: ");
                     String nameToDelete = scanner.nextLine();
                     cart.remove(nameToDelete);
@@ -66,10 +80,17 @@ public class Main {
 
                 }
                 case "c" -> {
+                    if (cart.isEmpty()){
+                        System.out.println("add something to the cart first");
+                        continue;
+                    }
                     System.out.println(cart.checkout());
                     scanner.close();
                     return;
+
                 }
+
+
             }
             System.out.println("\n\nSHOPPING CART\n\n" + cart);
             System.out.print("\nEnter anything to continue: ");
