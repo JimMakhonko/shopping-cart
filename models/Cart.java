@@ -30,14 +30,10 @@ public class Cart {
         if (items.contains(item)) {
             return false;
         }
-        items.add(new Item(item));
-        return true;
+        return items.add(new Item(item));
     }
 
-    public void addItem(Item item) {
-        items.add(new Item(item));
-    }
-    public boolean contains(Item item){
+    public boolean contains(Item item) {
         return items.contains(item);
     }
 
