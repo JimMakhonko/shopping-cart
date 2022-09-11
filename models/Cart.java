@@ -33,9 +33,18 @@ public class Cart {
         items.add(new Item(item));
         return true;
     }
-public boolean isEmpty(){
+
+    public void addItem(Item item) {
+        items.add(new Item(item));
+    }
+    public boolean contains(Item item){
+        return items.contains(item);
+    }
+
+    public boolean isEmpty() {
         return this.items.isEmpty();
-}
+    }
+
     /**
      * Name: remove
      *
@@ -43,7 +52,7 @@ public boolean isEmpty(){
      *             1. Removes the item that matches the name passed in.
      */
     public void remove(String name) {
-        if (items.isEmpty())throw new IllegalStateException("The list is empty");
+        if (items.isEmpty()) throw new IllegalStateException("The list is empty");
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getName().equals(name)) {
                 items.remove(i);
@@ -63,7 +72,7 @@ public boolean isEmpty(){
      * 4. Returns a String that resembles a receipt. See below.
      */
     public String checkout() {
-        if (items.isEmpty())throw new IllegalStateException("The list is empty");
+        if (items.isEmpty()) throw new IllegalStateException("The list is empty");
         double[] measures = new double[3];
         for (int i = 0; i < items.size(); i++) {
             measures[0] += items.get(i).getPrice();
