@@ -21,4 +21,15 @@ public class CartTest {
     public void itemAddedTest(){
         assertTrue(cart.contains(new Item("Crush",1.99)));
     }
+
+    @Test
+    public void removedItemTest(){
+        cart.remove("Crush");
+        assertFalse(cart.contains(new Item("Crush",1.99)));
+    }
+
+    @Test
+    public void subtotalIsValidTest(){
+        assertEquals(3.98,cart.getSubtotal(),2);
+    }
 }

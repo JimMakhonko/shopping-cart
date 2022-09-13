@@ -41,6 +41,14 @@ public class Cart {
         return this.items.isEmpty();
     }
 
+    public double getSubtotal() {
+        return items.stream().mapToDouble((item) -> item.getPrice()).sum();
+/*        for (int i = 0; i < items.size(); i++) {
+            subtotal += items.get(i).getPrice();
+        }
+        return subtotal;*/
+    }
+
     /**
      * Name: remove
      *
@@ -48,12 +56,11 @@ public class Cart {
      *             1. Removes the item that matches the name passed in.
      */
     public void remove(String name) {
-        if (items.isEmpty()) throw new IllegalStateException("The list is empty");
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName().equals(name)) {
+        items.removeIf((item) -> item.getName().equals(name));
+/*        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getName().equals(name)){
                 items.remove(i);
-            }
-        }
+            }*/
     }
 
     /**
