@@ -46,7 +46,13 @@ public class CartTest {
 
     @Test(expected = IllegalStateException.class)
     public void invalidRemoveState() {
+        cart.clear();
+        cart.remove("Pepsi");
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void invalidCheckoutState(){
 cart.clear();
-cart.remove("Pepsi");
+cart.checkout();
     }
 }
