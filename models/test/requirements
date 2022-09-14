@@ -1,0 +1,8 @@
+-removing an item
+    - Test if the item gets removed after being sold.
+    - Test for IllegalStateException for trying to remove from an empty cart.
+-checkout
+    -Test if subtotal is calculated correctly.
+    - Test if tax is calculated correctly.
+    - Test if total is calculated correctly.
+    - Test for an IllegalStateException for trying to checkout an empty cart.

@@ -1,4 +1,5 @@
 package models.test;
+
 import org.junit.Assert.*;
 import models.Cart;
 import models.Item;
@@ -18,18 +19,34 @@ public class CartTest {
     }
 
     @Test
-    public void itemAddedTest(){
-        assertTrue(cart.contains(new Item("Crush",1.99)));
+    public void itemAddedTest() {
+        assertTrue(cart.contains(new Item("Crush", 1.99)));
     }
 
     @Test
-    public void removedItemTest(){
+    public void removedItemTest() {
         cart.remove("Crush");
-        assertFalse(cart.contains(new Item("Crush",1.99)));
+        assertFalse(cart.contains(new Item("Crush", 1.99)));
     }
 
     @Test
-    public void subtotalIsValidTest(){
-        assertEquals(3.98,cart.getSubtotal(),2);
+    public void subtotalIsValidTest() {
+        assertEquals(3.98, cart.getSubtotal(), 2);
+    }
+
+    @Test
+    public void taxIsValidTest() {
+        assertEquals(0.51, cart.getTax(3.98), 2);
+    }
+
+    @Test
+    public void totalIsValid() {
+        assertEquals(4.49, (cart.getTotal(3.98, 0.51)), 2);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void invalidRemoveState() {
+cart.clear();
+cart.remove("Pepsi");
     }
 }

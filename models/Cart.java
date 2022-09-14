@@ -1,5 +1,6 @@
 package models;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Cart {
@@ -43,12 +44,19 @@ public class Cart {
 
     public double getSubtotal() {
         return items.stream().mapToDouble((item) -> item.getPrice()).sum();
-/*        for (int i = 0; i < items.size(); i++) {
-            subtotal += items.get(i).getPrice();
-        }
-        return subtotal;*/
+
     }
 
+    public double getTax(double subtotal) {
+        return subtotal * 0.13;
+    }
+
+    public double getTotal(double subtotal, double tax) {
+        return subtotal + tax;
+    }
+public void clear(){
+    items.clear();
+}
     /**
      * Name: remove
      *
@@ -56,11 +64,9 @@ public class Cart {
      *             1. Removes the item that matches the name passed in.
      */
     public void remove(String name) {
+        if (items.isEmpty()) throw new IllegalStateException("INVALID STATE");
         items.removeIf((item) -> item.getName().equals(name));
-/*        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getName().equals(name)){
-                items.remove(i);
-            }*/
+
     }
 
     /**
@@ -76,16 +82,10 @@ public class Cart {
      */
     public String checkout() {
         if (items.isEmpty()) throw new IllegalStateException("The list is empty");
-        double[] measures = new double[3];
-        for (int i = 0; i < items.size(); i++) {
-            measures[0] += items.get(i).getPrice();
-        }
-        measures[1] += measures[0] * 0.13;
-        measures[2] += measures[0] + measures[1];
         return "\tRECEIPT\n\n" +
-                "\tSubtotal: $" + measures[0] + "\n" +
-                "\tTax: $" + measures[1] + "\n" +
-                "\tTotal: $" + measures[2] + "\n";
+                "\tSubtotal: $" + getSubtotal() + "\n" +
+                "\tTax: $" + String.format("%.2f", getTax(getSubtotal())) + "\n" +
+                "\tTotal: $" + String.format("%.2f", getTotal(getSubtotal(), getTax(getSubtotal()))) + "\n";
     }
 
     public String toString() {
